@@ -70,6 +70,7 @@ export default function Home() {
           {/* Metrics Grid */}
           <div className="space-y-4">
             <UserMetricsCard
+              data={data}
               metric="0"
               label="Total Tickets Submitted in past 3 days"
               linkText="Click to view user profile"

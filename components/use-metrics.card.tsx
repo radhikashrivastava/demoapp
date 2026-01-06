@@ -12,7 +12,7 @@ interface UserMetricsCardProps {
     linkText?: string
     subtext?: string
     hasLink?: boolean
-    data: UserMetricsCardData
+    data: UserMetricsCardData | null
   
   }
   
