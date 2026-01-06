@@ -12,7 +12,7 @@ export default function Home() {
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
        <form onSubmit={handleSubmit}>
         <input type="text" placeholder="type your name" onChange={(e)=>setInputVal(e.target.value)} value={inputVal}/>
-        <button>Submit</button>
+        <button type="submit">Submit</button>
        </form>
     </div>
   );
