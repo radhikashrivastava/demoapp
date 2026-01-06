@@ -74,13 +74,13 @@ export default function Home() {
               label="Total Tickets Submitted in past 3 days"
               linkText="Click to view user profile"
             />
-            <UserMetricsCard metric="0" label="Total Unsolved Tickets" linkText="Click to view user profile" />
-            <UserMetricsCard
+            <UserMetricsCard data={data} metric="0" label="Total Unsolved Tickets" linkText="Click to view user profile" />
+            <UserMetricsCard data={data}
               metric="24"
               label="Total Tickets Submitted (All History)"
               linkText="Click to view user profile"
             />
-            <UserMetricsCard
+            <UserMetricsCard data={data}
               metric="0"
               label="Open tickets with Jira"
               subtext="No matching tickets"
