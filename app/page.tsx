@@ -36,6 +36,15 @@ const url = `/users/${userId}`;
             <h1 className="text-2xl font-semibold text-black-500 mb-2">Requester-Level Summary</h1>
       
           </div>
+          <div className="mb-8">
+  
+
+  <select className="border border-gray-300 rounded px-3 py-1">
+    <option value="10">Last 10 days</option>
+    <option value="30">Last 30 days</option>
+    <option value="60">Last 60 days</option>
+  </select>
+</div>
 
           {/* Metrics Grid */}
           <div className="space-y-4">
