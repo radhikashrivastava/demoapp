@@ -1,20 +1,32 @@
 "use client";
 import{useRouter} from 'next/navigation'
-import {useState, FormEvent} from "react";
+import {useState, FormEvent, useEffect} from "react";
 import { Card, CardContent } from "@/components/ui/card"
 import { UserMetricsCard } from "../components/use-metrics.card"
 import { UserHeader } from "../components/use-header"
 export default function Home() {
 
-    const [inputVal, setInputVal] = useState("")
-    const {push} = useRouter()
-    const handleSubmit = (event: FormEvent) => {
-       event.preventDefault()
-       console.log(inputVal)
-       const userId = 42;
-const url = `/users/${userId}`;
-       push('/prediction/${userId}')
+  const [days, setDays] = useState(10); // default last 10 days
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const fetchData = async (days: number) => {
+    setLoading(true);
+    try {
+      const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+      const result = await res.json();
+      // Add the selected days to show how selection affects data
+      setData({ ...result, selectedDays: days });
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      setData(null);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fetchData(days);
+  }, [days]);   
   return (
     
     // <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -39,11 +51,20 @@ const url = `/users/${userId}`;
           <div className="mb-8">
   
 
-  <select className="border border-gray-300 rounded px-3 py-1">
-    <option value="10">Last 10 days</option>
-    <option value="30">Last 30 days</option>
-    <option value="60">Last 60 days</option>
+  <select  className="border border-gray-300 rounded px-3 py-1"
+        value={days}
+        onChange={(e) => setDays(Number(e.target.value))}>
+        <option value={10}>Last 10 days</option>
+        <option value={30}>Last 30 days</option>
+        <option value={60}>Last 60 days</option>
   </select>
+  <div className="mt-4">
+        {loading && <p>Loading...</p>}
+        {!loading && data && (
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        )}
+        {!loading && !data && <p>No data available</p>}
+      </div>
 </div>
 
           {/* Metrics Grid */}
