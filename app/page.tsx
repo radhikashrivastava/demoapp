@@ -9,12 +9,43 @@ export default function Home() {
   const [days, setDays] = useState(10); // default last 10 days
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  // const fetchData = async (days: number) => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+  //     const result = await res.json();
+  //     // Add the selected days to show how selection affects data
+  //     setData({ ...result, selectedDays: days });
+  //   } catch (err) {
+  //     console.error("Error fetching data:", err);
+  //     setData(null);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  /**Code with Authorization */
   const fetchData = async (days: number) => {
     setLoading(true);
     try {
-      const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+      const res = await fetch(
+        "https://apim.workato.com/radhikas4/samsara-v1/samsara",
+        {
+          method: "GET", // change to POST if your API requires it
+          headers: {
+            "Content-Type": "application/json",
+            "API-TOKEN": "a026ef62e10937b889bafdb3d494d8f4259cc5b1f9a66eaad3055cd396f16859",
+          },
+        }
+      );
+  
+      if (!res.ok) {
+        throw new Error(`Request failed: ${res.status}`);
+      }
+  
       const result = await res.json();
-      // Add the selected days to show how selection affects data
+  
+      // attach selected days as before
       setData({ ...result, selectedDays: days });
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -23,6 +54,7 @@ export default function Home() {
       setLoading(false);
     }
   };
+  
 
   useEffect(() => {
     fetchData(days);
